@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import News,NewsImage,Category
+from .models import News,NewsImage,Category,Tag
 # Register your models here.
 
 @admin.register(News)
@@ -13,4 +13,8 @@ class NewsImageAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
     pass
