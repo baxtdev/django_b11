@@ -1,5 +1,62 @@
+{% extends 'components/base.html' %}
 
-{% for news_ in news %}
-    {{news_.title}}
-{% endfor %}
+{% block content %}
+
+<main>
+    <h1>Новости</h1>
+    <form method="get" action="" class="search-filter-form">
+        <input
+            type="text"
+            name="search"
+            placeholder="Поиск по заголовкам..."
+            value="{{ search|default:'' }}"
+            autocomplete="off"
+        />
+        <select name="category">
+            <option value="">Все категории</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if selected_category and selected_category.id == cat.id %}selected{% endif %}>
+                    {{ cat.title }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Фильтровать</button>
+        <a href="{% url 'news-create' %}" class="create-news-button">+ Добавить новость</a>
+
+    </form>
     
+
+    <div class="news-list">
+        {% for news_ in news %}
+            <div class="news-item">
+                <a href="{% url 'news-detail' news_.id %}">
+                    {% if news_.image %}
+                        <img src="{{ news_.image.image.url }}" alt="{{ news_.title }}" class="news-thumb" />
+                    {% endif %}
+                    <h2>{{ news_.title }}</h2>
+                </a>
+
+                <p class="description">{{ news_.description|truncatechars:150 }}</p>
+
+                <div class="meta">
+                    <span><strong>Автор:</strong> {{ news_.author }}</span> |
+                    <span><strong>Категория:</strong> {{ news_.category.title }}</span> |
+                    <span><strong>Дата:</strong> {{ news_.date|date:"d.m.Y H:i" }}</span> |
+                    <span><strong>Просмотры:</strong> {{ news_.views }}</span>
+                </div>
+
+                <div class="tags">
+                    {% for tag in news_.tag.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                    {% empty %}
+                        <span class="tag">Без тегов</span>
+                    {% endfor %}
+                    <a href="/change/1"><span class="tag">Редактировать</span></a>
+                </div>
+            </div>
+        {% empty %}
+            <p>Нет новостей, соответствующих запросу.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock content %}

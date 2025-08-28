@@ -1,0 +1,230 @@
+
+/* Общие стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Хедер */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Навигация */
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover,
+.navbar ul li a.active {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+/* Основной контент */
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Форма поиска и фильтра */
+.search-filter-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.search-filter-form input[type="text"],
+.search-filter-form select {
+    padding: 8px 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-filter-form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.search-filter-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Список новостей */
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Отдельная новость */
+.news-item {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 5px solid #007BFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: black;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: block;
+    cursor: pointer;
+}
+
+.news-item:hover {
+    background-color: #f4f8ff;
+}
+
+/* Миниатюра новости */
+.news-thumb {
+    width: 200px;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+/* Мета-информация */
+.meta {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* Теги */
+.tags {
+    margin-top: 5px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-right: 5px;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .news-thumb {
+        width: 100%;
+        height: auto;
+    }
+
+    .search-filter-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-filter-form input[type="text"],
+    .search-filter-form select,
+    .search-filter-form button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+.create-news-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+
+.create-news-button:hover {
+    background-color: #0056b3;
+}
+
+.news-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.news-form .form-group {
+    margin-bottom: 15px;
+}
+
+.news-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.news-form input[type="text"],
+.news-form input[type="file"],
+.news-form textarea,
+.news-form select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.news-form .error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.news-form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.news-form button:hover {
+    background-color: #0056b3;
+}

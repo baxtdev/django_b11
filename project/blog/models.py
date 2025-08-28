@@ -35,8 +35,6 @@ class News(models.Model):
         on_delete=models.CASCADE,
         related_name="news",
         verbose_name="Кат",
-        blank=True,
-        null=True,
     )
     tag = models.ManyToManyField(
         Tag,
@@ -54,6 +52,28 @@ class News(models.Model):
         null=True,
         default="По умол.описание"
     )
+    date = models.DateTimeField(
+        verbose_name='дата добавление', 
+        auto_now_add=True
+    )
+    updated = models.DateTimeField(
+        verbose_name='дата изменение', 
+        auto_now=True
+    )
+    author = models.CharField(
+        max_length=50, 
+        verbose_name='автор', 
+        null=True, 
+        blank=True
+    )
+    views = models.PositiveIntegerField(
+        verbose_name='просмотры', 
+        default=0
+    )
+    is_published = models.BooleanField(
+        verbose_name='публичность', 
+        default=True
+    )
     
 
     class Meta:
@@ -62,6 +82,11 @@ class News(models.Model):
     
     def __str__(self):
         return self.title
+    
+    @property
+    def image(self):
+        return self.images.first()
+    
 
 
 class NewsImage(models.Model):

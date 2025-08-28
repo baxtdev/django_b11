@@ -1,0 +1,26 @@
+{% load news_tags %}
+<header>
+    <div class="logo">NewsPortal</div>
+    <nav class="navbar">
+        
+        
+        <ul>
+            <li>
+                <a href="{% url 'news-list' %}" class="{% if not selected_category %}active{% endif %}">Все категории</a>
+            </li>
+            {% get_categories as categories %}
+            {% for category in categories %}
+                <li>
+                    <a href="{% url 'news-list' %}?category={{ category.id }}"
+                       class="{% if selected_category and selected_category.id == category.id %}active{% endif %}">
+                       {{ category.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    
+    <h2>Добро пожаловать, {{ request.user.username }}!</h2>
+    <a href="{% url 'logout' %}">Выйти</a>
+</header>

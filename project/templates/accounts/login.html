@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="logo">NewsPortal</div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'news-list' %}">Главная</a></li>
+            <li><a href="{% url 'register' %}">Регистрация</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Вход</h1>
+
+    <form method="post" class="news-form">
+        {% csrf_token %}
+        
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+
+        <div class="form-group">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        <button type="submit">Войти</button>
+    </form>
+</main>
+
+</body>
+</html>

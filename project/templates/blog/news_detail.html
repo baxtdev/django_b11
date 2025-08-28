@@ -1,0 +1,44 @@
+{% extends 'components/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/news_detail/style.css' %}"/>
+
+<main class="news-detail">
+    <h1>{{ news.title }}</h1>
+
+    <div class="meta">
+        <span><strong>Категория:</strong> {{ news.category.title }}</span> |
+        <span><strong>Автор:</strong> {{ news.author }}</span> |
+        <span><strong>Дата:</strong> {{ news.date|date:"d.m.Y H:i" }}</span> |
+        <span><strong>Просмотры:</strong> {{ news.views }}</span>
+    </div>
+
+    {% if news.image %}
+        <img src="{{ news.image.image.url }}" alt="{{ news.title }}" class="news-detail-image">
+    {% endif %}
+
+    <p class="description">{{ news.description }}</p>
+
+    <div class="tags">
+        <strong>Теги:</strong>
+        {% for tag in news.tag.all %}
+            <span class="tag">{{ tag.name }}</span>
+        {% empty %}
+            <span class="tag">Без тегов</span>
+        {% endfor %}
+    </div>
+
+    {% if news.images.all %}
+        <h3>Галерея</h3>
+        <div class="gallery">
+            {% for image in news.images.all %}
+                <img src="{{ image.image.url }}" alt="Gallery Image" class="gallery-img">
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</main>
+
+{% endblock content %}

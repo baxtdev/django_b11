@@ -4,3 +4,9 @@
 4.python manage.py runserver
 5.python manage.py migrate
 6.python manage.py createsuperuser
+
+
+Создайте несколько категорий 
+Создайте несколько тегов 
+Добавьте 5–10 новостей в разные категории
+Привяжите к новостям несколько тегов и прикрепите изображения

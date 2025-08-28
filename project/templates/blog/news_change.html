@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить новость</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="logo">NewsPortal</div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'news-list' %}">Назад к новостям</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Добавить новость</h1>
+
+    <form method="post" enctype="multipart/form-data" class="news-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="title">Заголовок:</label>
+            <input type="text" name="title" id="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Описание:</label>
+            <textarea name="description" id="description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Категория:</label>
+            <select name="category" id="category" required>
+                <option value="">-- Выберите категорию --</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Теги:</label>
+            <select name="tags" id="tags" multiple>
+                {% for tag in tags %}
+                    <option value="{{ tag.id }}" >{{ tag.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Изображение:</label>
+            <input type="file" name="images" id="image" multiple>
+        </div>
+
+        <button type="submit">Сохранить</button>
+    </form>
+</main>
+
+</body>
+</html>
