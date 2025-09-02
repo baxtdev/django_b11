@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save,pre_save,post_migrate
 from django.dispatch import receiver
-from django.contrib.auth.models import User
+from accounts.models import CustomUser as User
 
 from .models import News
 

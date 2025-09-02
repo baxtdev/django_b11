@@ -141,3 +141,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'devuser014@gmail.com'
 EMAIL_HOST_PASSWORD = 'koeb ayfq zhlv shjv'
+
+AUTH_USER_MODEL = "accounts.CustomUser"
