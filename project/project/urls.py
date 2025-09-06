@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
-
+from api.enpoints import urlpatterns as api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('blog.urls')),
-    path('',include('accounts.urls'))
+    path('',include('accounts.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/v1/',include(api_urls))
 ]
 
 
