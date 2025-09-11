@@ -7,27 +7,12 @@ from rest_framework import authentication, permissions,status
 
 
 from blog.models import News,Category
-from .serializers import NewsSerializer
+from .serializers import NewsSerializer,CategorySerializer
+from .mixins import GETPOSTMixin
 
-class NewsListAPIView(APIView):
-    def get(self, request, format=None):
-        news = NewsSerializer(News.objects.all(),many=True).data
-        return Response(news,status=status.HTTP_200_OK)
-
-
-    def post(self, request, format=None):
-        news_data=request.data
-        {
-            "title":"asd",
-            "category":1
-        }
-        serializer_data = NewsSerializer(data=news_data,context={'request':request})
-        
-        if serializer_data.is_valid():
-            data = serializer_data.save()
-            return Response(serializer_data.data,status=status.HTTP_201_CREATED)
-
-        return Response(serializer_data.errors)
+class NewsListAPIView(GETPOSTMixin,APIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
     
 
 
@@ -55,3 +40,8 @@ class NewsDetailAPIView(APIView):
             return Response(news_data.data) 
         
         return Response(news_data.errors)
+
+
+class CategoryAPIVIew(GETPOSTMixin,APIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

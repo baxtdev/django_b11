@@ -22,7 +22,19 @@ class NewsSerializer(serializers.Serializer):
     )
     views = serializers.IntegerField(read_only=True)
     is_published = serializers.BooleanField(required = False)
-    
+ 
+
+    def validate_title(self,title):
+        if title =="Simple":
+            raise serializers.ValidationError("Title не должкн быть равен Simple")
+        return title
+
+
+    def validate(self, attrs):
+        title = attrs.get('title')
+        return super().validate(attrs)
+
+
     def create(self, validated_data):
         tag = validated_data.pop('tag')
     
@@ -35,5 +47,10 @@ class NewsSerializer(serializers.Serializer):
     def update(self, instance:News, validated_data):
         instance.title = validated_data.get('title',instance.title)
         instance.save()
-
         return instance
+    
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
