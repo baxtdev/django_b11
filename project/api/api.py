@@ -17,13 +17,18 @@ class NewsListAPIView(APIView):
 
     def post(self, request, format=None):
         news_data=request.data
-        serializer_data = NewsSerializer(data=news_data)
+        {
+            "title":"asd",
+            "category":1
+        }
+        serializer_data = NewsSerializer(data=news_data,context={'request':request})
         
         if serializer_data.is_valid():
             data = serializer_data.save()
             return Response(serializer_data.data,status=status.HTTP_201_CREATED)
 
         return Response(serializer_data.errors)
+    
 
 
 class NewsDetailAPIView(APIView):
@@ -39,12 +44,12 @@ class NewsDetailAPIView(APIView):
 
     def delete(self,request,pk,format=None,*args,**kwargs):
         news = self.get_object(pk)
-        print(news)
+        news.delete()
         return Response({"detail":f"Object news with id {news.id} was deleted"},status=status.HTTP_204_NO_CONTENT)
 
     def put(self,request,pk,format=None,*args,**kwargs):
         news = self.get_object(pk)
-        news_data = NewsSerializer(news,data=request.data)
+        news_data = NewsSerializer(news,data=request.data,context={'request':request})
         if news_data.is_valid():
             news_data.save()
             return Response(news_data.data) 
