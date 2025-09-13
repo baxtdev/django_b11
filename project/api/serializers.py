@@ -4,6 +4,7 @@ from blog.models import News,Category,Tag
 
 
 class NewsSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     category = serializers.PrimaryKeyRelatedField(
         queryset = Category.objects.all(),
         required = True
@@ -53,4 +54,4 @@ class NewsSerializer(serializers.Serializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['id','title']
