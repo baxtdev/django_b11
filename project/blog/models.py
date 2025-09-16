@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import CustomUser
 # Create your models here.
 
 
@@ -60,8 +61,9 @@ class News(models.Model):
         verbose_name='дата изменение', 
         auto_now=True
     )
-    author = models.CharField(
-        max_length=50, 
+    author = models.ForeignKey(
+        CustomUser,
+        on_delete=models.SET_NULL,
         verbose_name='автор', 
         null=True, 
         blank=True

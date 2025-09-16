@@ -1,57 +1,38 @@
 from rest_framework import serializers
 
-from blog.models import News,Category,Tag
+from blog.models import News,Category,Tag,NewsImage
 
 
-class NewsSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    category = serializers.PrimaryKeyRelatedField(
-        queryset = Category.objects.all(),
-        required = True
-    )
-    tag =  serializers.PrimaryKeyRelatedField(
-        queryset=Tag.objects.all(),
-        many=True,
-        required = False
-    )
-    title = serializers.CharField(required = True)
-    description = serializers.CharField(required = False)
-    date = serializers.DateTimeField(read_only=True)
-    updated = serializers.DateTimeField(read_only=True)
-    author = serializers.HiddenField(
-        default=serializers.CurrentUserDefault()
-    )
-    views = serializers.IntegerField(read_only=True)
-    is_published = serializers.BooleanField(required = False)
- 
 
-    def validate_title(self,title):
-        if title =="Simple":
-            raise serializers.ValidationError("Title не должкн быть равен Simple")
-        return title
+class NewsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsImage
+        fields = '__all__'
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
 
-    def validate(self, attrs):
-        title = attrs.get('title')
-        return super().validate(attrs)
-
-
-    def create(self, validated_data):
-        tag = validated_data.pop('tag')
-    
-        news = News.objects.create(
-            **validated_data
-        )
-        news.tag.set(tag)
-        return news
-
-    def update(self, instance:News, validated_data):
-        instance.title = validated_data.get('title',instance.title)
-        instance.save()
-        return instance
-    
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id','title']
+
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    # category = CategorySerializer(read_only=True,required=False)
+    # tag = TagSerializer(many=True,required=False)
+    # images = NewsImageSerializer(many=True,required=False)
+    class Meta:
+        model = News
+        fields = '__all__'
+    
+    def create(self, validated_data):
+        return super().create(validated_data)
+
+    
+    

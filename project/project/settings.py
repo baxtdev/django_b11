@@ -144,3 +144,9 @@ EMAIL_HOST_USER = 'devuser014@gmail.com'
 EMAIL_HOST_PASSWORD = 'koeb ayfq zhlv shjv'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3
+}
