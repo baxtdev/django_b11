@@ -3,6 +3,7 @@ from django.urls import path,include
 from rest_framework.routers import DefaultRouter
 
 from .api import NewsViewSet,CategoryViewSet
+from .yasg import urlpatterns as url_doc
 
 router = DefaultRouter()
 
@@ -16,3 +17,4 @@ urlpatterns = [
     # path('categories/', CategoryAPIVIew.as_view(), name='category-list'),
     path('',include(router.urls))
 ]
+urlpatterns+=url_doc
