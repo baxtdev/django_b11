@@ -112,4 +112,3 @@ class NewsImage(models.Model):
     def __str__(self):
         return f"Фото-{self.news.title}"
 
-
