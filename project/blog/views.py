@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import News, Category,Tag
+from .tasks import count_news_at_category
 
 @login_required
 def news_list(request):
@@ -104,3 +105,11 @@ def news_create(request):
         'categories': categories,
         'tags': tags
     })
+
+
+
+
+def create_report(request):
+    task = count_news_at_category.apply_async(countdown=1)
+
+    return render(request, 'blog/report_result.html',context={"task":task})
